@@ -17,7 +17,7 @@ export default defineConfig(({ mode }) => ({
   server: {
     proxy: {
       "/api": {
-        target: mode === "development" ? "http://localhost:4000" : "https://videocave.onrender.com",
+        target: "http://localhost:4000", // Local dev only
         changeOrigin: true,
         secure: false,
       },
