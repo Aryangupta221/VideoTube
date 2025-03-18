@@ -1,9 +1,9 @@
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { defineConfig } from "vite";
+import { fileURLToPath } from "url";
 
 // Fix for __dirname in ESM
-import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -15,13 +15,17 @@ export default defineConfig(({ mode }) => ({
     },
   },
   server: {
-    proxy: {
-      "/api": {
-        target: "http://localhost:4000", // Local dev only
-        changeOrigin: true,
-        secure: false,
-      },
-    },
+    proxy: mode === "development"
+      ? {
+          "/api": {
+            target: "http://localhost:4000",
+            changeOrigin: true,
+            secure: false,
+          },
+        }
+      : {}, // ❌ No proxy in production
+  },
+  build: {
+    outDir: "dist", // Ensures build output is correct
   },
 }));
-
