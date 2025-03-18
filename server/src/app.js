@@ -7,13 +7,16 @@ const app = express();
 
 // Connect to MongoDB
 connectDB().catch((err) => console.log("MongoDB connection failed:", err));
-
-app.use(
-    cors({
-        origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(",") : ["http://localhost:5173"],
-        credentials: true,
-    })
-);
+cors({
+    origin: [
+        "http://localhost:5173",
+        "https://video-tube-beta.vercel.app",
+        "https://video-streaming-app-wme1.onrender.com",
+        "https://video-tube-kabc.vercel.app"
+    ],
+    credentials: true,
+})
+;
 
 app.use(express.json({ limit: "200mb" }));
 app.use(express.urlencoded({ extended: true, limit: "200mb" }));
