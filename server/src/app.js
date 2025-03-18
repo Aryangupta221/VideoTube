@@ -34,11 +34,7 @@ import dashboardRouter from "./routes/dashboard.routes.js";
 app.get("/", (req, res) => res.send("Backend of Streamify"));
 
 // Route declarations with multer for user routes
-app.use(
-    "/api/v1/users",
-    upload.fields([{ name: "avatar" }, { name: "coverImage" }]),
-    userRouter
-);
+app.use("/api/v1/users", userRouter);
 app.use("/api/v1/comments", commentRouter);
 app.use("/api/v1/likes", likeRouter);
 app.use("/api/v1/tweets", tweetRouter);
