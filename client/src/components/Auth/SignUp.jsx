@@ -31,10 +31,7 @@ function SignUp() {
         setError("");
         setLoading(true);
         try {
-            const response = await axiosInstance.post(
-                "/users/register",
-                formData
-            );
+            const response = await axiosInstance.post("/api/v1/users/register", formData);
             if (response?.data?.data) {
                 toast.success("Account created successfully 🥳");
                 navigate("/login");

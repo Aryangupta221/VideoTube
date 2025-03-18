@@ -2,11 +2,10 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import connectDB from "./db/index.js";
-import { upload } from "./middlewares/multer.middleware.js";
 
 const app = express();
 
-
+// Connect to MongoDB
 connectDB().catch((err) => console.log("MongoDB connection failed:", err));
 
 app.use(
@@ -21,6 +20,7 @@ app.use(express.urlencoded({ extended: true, limit: "200mb" }));
 app.use(express.static("public"));
 app.use(cookieParser());
 
+// Routes
 import userRouter from "./routes/user.routes.js";
 import commentRouter from "./routes/comment.routes.js";
 import likeRouter from "./routes/like.routes.js";
@@ -33,7 +33,7 @@ import dashboardRouter from "./routes/dashboard.routes.js";
 
 app.get("/", (req, res) => res.send("Backend of Streamify"));
 
-// Route declarations with multer for user routes
+// Route declarations
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/comments", commentRouter);
 app.use("/api/v1/likes", likeRouter);
